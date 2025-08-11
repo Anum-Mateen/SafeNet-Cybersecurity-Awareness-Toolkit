@@ -1,4 +1,5 @@
 # 🔐 SafeNet — Cybersecurity Awareness Toolkit (CLI)
+
 [![License](https://img.shields.io/github/license/Anum-Mateen/SafeNet-Cybersecurity-Awareness-Toolkit)](./LICENSE)
 ![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
 ![Repo Size](https://img.shields.io/github/repo-size/Anum-Mateen/SafeNet-Cybersecurity-Awareness-Toolkit)
@@ -8,22 +9,21 @@
 
 ---
 
-
 ## 📑 Table of Contents  
-- [About the Project](#about-the-project)  
-- [Features](#features)  
-- [Project Structure](#project-structure)  
-- [Prerequisites](#prerequisites)  
-- [Features in Detail](#features-in-detail)  
-- [Team & Responsibilities](#team--responsibilities)  
-- [Installation](#installation)  
-- [Usage](#usage)  
-- [Data Storage](#data-storage)  
-- [Development Timeline](#development-timeline)  
-- [Testing Checklist](#testing-checklist)  
-- [License](#license)  
-- [Demo Screenshots](#demo-screenshots)  
-- [Authors](#authors)  
+- [About the Project](#-about-the-project)  
+- [Features](#-features)  
+- [Project Structure](#-project-structure)  
+- [Prerequisites](#-prerequisites)  
+- [Features in Detail](#-features-in-detail)  
+- [Team & Responsibilities](#-team--responsibilities)  
+- [Installation](#-installation)  
+- [Usage](#-usage)  
+- [Data Storage](#-data-storage)  
+- [Development Timeline](#-development-timeline)  
+- [Testing Checklist](#-testing-checklist)  
+- [License](#-license)  
+- [Demo Screenshots](#-demo-screenshots)  
+- [Authors](#-authors)  
 
 ---
 
@@ -48,24 +48,26 @@ It is a **pure Python, menu-driven CLI tool** designed to educate, test, and pro
 
 ## 📂 Project Structure
 
+```plaintext
 SafeNet/
 │
-├── main.py # Program entry & menu loop
-├── quiz.py # Quiz logic & question bank handling
-├── phish.py # Phishing detection logic
-├── password.py # Password strength checker
-├── tips.py # Cybersecurity tips generator
-├── breach.py # Data breach simulator
-├── stats.py # Stats & leaderboard handling
-├── utils.py # Shared helper functions
-├── data/
-│   ├── questions.json
-│   ├── breached_accounts.json
-│   ├── leaderboard.json
+├── main.py             # Program entry & menu loop
+├── quiz.py             # Quiz logic & question bank handling
+├── phish.py            # Phishing detection logic
+├── password.py         # Password strength checker
+├── tips.py             # Cybersecurity tips generator
+├── breach.py           # Data breach simulator
+├── stats.py            # Stats & leaderboard handling
+├── utils.py            # Shared helper functions
+├── data/               # Data storage directory
+│   ├── questions.json        # Quiz questions database
+│   ├── breached_accounts.json # Simulated breach data
+│   ├── leaderboard.json      # User scores and rankings
 │
-├── README.md
-├── .gitignore
-└── requirements.txt # (if needed)
+├── README.md           # Project documentation
+├── .gitignore          # Git exclusion rules
+└── requirements.txt    # Python dependencies (if needed)
+```
 
 ---
 
@@ -111,7 +113,7 @@ python --version
 
 ## 👥 Team & Responsibilities
 
-**Member A — Anum Mateen** *(Backend & Learning Flow)*
+**Member A — [Anum Mateen](https://github.com/Anum-Mateen)** *(Backend & Learning Flow)*  
 - Modules: `quiz.py`, `tips.py`, `stats.py` (primary), assists in `utils.py`
 - **Key Tasks:**
   - Create question bank (30+ questions, 10 per level)
@@ -119,9 +121,9 @@ python --version
   - Create a tips generator with 20+ entries
   - Implement JSON-based stats storage & leaderboard
   - Provide test data (`questions.json`, sample `leaderboard.json`)
-  - Review Member B’s code
+  - Review Member B's code
 
-**Member B — Syeda Muqaddas Bibi** *(Detection & Security Tools)*
+**Member B — [Syeda Muqaddas Bibi](https://github.com/syeda-muqaddas)** *(Detection & Security Tools)*  
 - Modules: `phish.py`, `password.py`, `breach.py` (primary), assists in `utils.py`
 - **Key Tasks:**
   - Implement phishing detection rules (protocol, keywords, domain checks)
@@ -129,7 +131,7 @@ python --version
   - Create a mock breached accounts database
   - Implement breach simulator logic
   - Provide test cases for phishing/password/breach checks
-  - Review Member A’s code
+  - Review Member A's code
 
 **Shared / Joint Responsibilities**
 - Integration in `main.py`
@@ -179,7 +181,7 @@ python --version
  - `leaderboard.json` → User scores & stats
  - `breached_accounts.json` → Mock breach database
  
-> All stored in `/data` directory in JSON format.
+*All stored in `/data` directory in JSON format.*
  
 ---
 
@@ -218,5 +220,5 @@ Licensed under the [MIT License](https://github.com/Anum-Mateen/SafeNet-Cybersec
 ---
 
 ## 🏆 Authors
- - **Anum Mateen** — Quiz, Tips, Stats
- - **Syeda Muqaddas Bibi** — Phishing, Password, Breach
+ - **[Anum Mateen](https://github.com/Anum-Mateen)** — Quiz, Tips, Stats
+ - **[Syeda Muqaddas Bibi](https://github.com/syeda-muqaddas)** — Phishing, Password, Breach
