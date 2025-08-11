@@ -1,9 +1,10 @@
 # 🔐 SafeNet — Cybersecurity Awareness Toolkit (CLI)
-> A CLI toolkit for cybersecurity learning, testing, and awareness.
 [![License](https://img.shields.io/github/license/Anum-Mateen/SafeNet-Cybersecurity-Awareness-Toolkit)](./LICENSE)
 ![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
 ![Repo Size](https://img.shields.io/github/repo-size/Anum-Mateen/SafeNet-Cybersecurity-Awareness-Toolkit)
 ![Last Commit](https://img.shields.io/github/last-commit/Anum-Mateen/SafeNet-Cybersecurity-Awareness-Toolkit)
+
+> A CLI toolkit for cybersecurity learning, testing, and awareness.
 
 ---
 
