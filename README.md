@@ -16,8 +16,8 @@
 - [Prerequisites](#-prerequisites)  
 - [Features in Detail](#-features-in-detail)  
 - [Team & Responsibilities](#-team--responsibilities)  
-- [Installation](#-installation)  
-- [Usage](#-usage)  
+- [Installation](#installation)  
+- [Usage](#usage)
 - [Data Storage](#-data-storage)  
 - [Development Timeline](#-development-timeline)  
 - [Testing Checklist](#-testing-checklist)  
@@ -82,7 +82,7 @@ python --version
 
 ---
 
-## 🚀 Features in details
+## 🚀 Features in detail
 
 - **Multi-level Cybersecurity Quiz**
   - Beginner, Intermediate, Advanced
