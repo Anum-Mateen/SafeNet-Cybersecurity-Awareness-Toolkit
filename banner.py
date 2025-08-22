@@ -8,20 +8,18 @@ RESET = "\033[0m"
 def banner_main():
     art = f"""
 {GREEN}
-  █████████             ██████       ██████   █████           █████   
- ███░░░░░███           ███░░███     ░░██████ ░░███           ░░███    
-░███    ░░░  ██████   ░███ ░░░██████ ░███░███ ░███   ██████  ███████  
-░░█████████ ░░░░░███ ███████ ███░░███░███░░███░███  ███░░███░░░███░   
- ░░░░░░░░███ ███████░░░███░ ░███████ ░███ ░░██████ ░███████   ░███    
- ███    ░██████░░███  ░███  ░███░░░  ░███  ░░█████ ░███░░░    ░███ ███
-░░█████████░░████████ █████ ░░██████ █████  ░░█████░░██████   ░░█████ 
- ░░░░░░░░░  ░░░░░░░░ ░░░░░   ░░░░░░ ░░░░░    ░░░░░  ░░░░░░     ░░░░░  
-                                                                                                                                                               
+    ███████╗ █████╗ ███████╗███████╗███╗   ██╗███████╗████████╗
+    ██╔════╝██╔══██╗██╔════╝██╔════╝████╗  ██║██╔════╝╚══██╔══╝
+    ███████╗███████║█████╗  █████╗  ██╔██╗ ██║█████╗     ██║   
+    ╚════██║██╔══██║██╔══╝  ██╔══╝  ██║╚██╗██║██╔══╝     ██║   
+    ███████║██║  ██║██║     ███████╗██║ ╚████║███████╗   ██║   
+    ╚══════╝╚═╝  ╚═╝╚═╝     ╚══════╝╚═╝  ╚═══╝╚══════╝   ╚═╝   
+                                                           
 {CYAN}          SafeNet : Cybersecurity Awareness Toolkit{RESET}                                                                         
 
-{YELLOW}A command-line toolkit  designed to test,  train, and  raise  awareness  
-about  modern  cybersecurity threats.  Strengthen  your  skills through  
-quizzes,    phishing    detection,    password    checks,   and   more.{RESET}
+{YELLOW}A command-line toolkit  designed to  test, train, and raise awareness  
+about  modern cybersecurity threats.  Strengthen  your skills through  
+quizzes,    phishing    detection,    password   checks,  and   more.{RESET}
 """
     print(art)
 
