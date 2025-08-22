@@ -1,85 +1,152 @@
 # password.py — SafeNet
-# Goal: Check password strength and suggest a strong one.
-# Uses: functions, if/else, loops, strings, operators.
+# ---------------------------------------------------------
+# Password Strength Checker
+# Evaluates length, character variety, and complexity
+# Provides actionable improvement suggestions
+# ---------------------------------------------------------
 
-def check_password(password):
+from banner import banner_heading, banner_summary
+import random
+
+
+# ------------------------------
+# Function: check_password
+# ------------------------------
+def check_password(password: str) -> tuple[str, list[str]]:
     """
+    Checks the strength of a password.
     Returns:
       (strength_label: 'Strong' | 'Medium' | 'Weak', reasons: list[str])
     """
     reasons = []
-    score = 0  # we add points for each rule passed
+    score = 0  # points for each rule passed
 
     # Rule 1: length
     if len(password) >= 8:
         score += 1
     else:
-        reasons.append("Too short: ❌ use at least 8 characters.")
+        reasons.append("[!] Too short: use at least 8 characters.")
 
-    # Rule 2: number
-    has_digit = False
-    for ch in password:
-        if ch.isdigit():
-            has_digit = True
-            break
-    if has_digit:
+    # Rule 2: contains number
+    if any(ch.isdigit() for ch in password):
         score += 1
     else:
-        reasons.append("❌ Add at least one number (0-9).")
+        reasons.append("[!] Add at least one number (0-9).")
 
-    # Rule 3: uppercase
-    has_upper = False
-    for ch in password:
-        if ch.isupper():
-            has_upper = True
-            break
-    if has_upper:
+    # Rule 3: contains uppercase
+    if any(ch.isupper() for ch in password):
         score += 1
     else:
-        reasons.append("❌ Add at least one uppercase letter (A-Z).")
+        reasons.append("[!] Add at least one uppercase letter (A-Z).")
 
-    # Rule 4: lowercase
-    has_lower = False
-    for ch in password:
-        if ch.islower():
-            has_lower = True
-            break
-    if has_lower:
+    # Rule 4: contains lowercase
+    if any(ch.islower() for ch in password):
         score += 1
     else:
-        reasons.append("❌ Add at least one lowercase letter (a-z).")
+        reasons.append("[!] Add at least one lowercase letter (a-z).")
 
-    # Rule 5: special
+    # Rule 5: contains special character
     specials = "~`!@#$%^&*()-_=+[]{}|;:'\",.<>?/"
-    has_special = False
-    for ch in password:
-        if ch in specials:
-            has_special = True
-            break
-    if has_special:
+    if any(ch in specials for ch in password):
         score += 1
     else:
-        reasons.append("❌ Add at least one special character like @ # $ !")
+        reasons.append("[!] Add at least one special character like @ # $ !")
 
-    # label by score
+    # Determine label
     if score == 5:
-        label = "🟢 Strong"
+        label = "[+] Strong"
     elif score >= 3:
-        label = "🟡 Medium"
+        label = "[!] Medium"
     else:
-        label = "🔴 Weak"
+        label = "[!] Weak"
+
     return label, reasons
 
+# ------------------------------
+# Function: suggest_password
+# ------------------------------
+def suggest_password() -> str:
+    """
+    Suggests an ultra-random but easy-to-understand password.
+    Combines multiple readable words, random capitalization,
+    symbols, and numbers.
+    Example: Luna#CYPher94!Mint
+    """
 
-# simple strong password suggestion 
-def suggest_password():
-    # We keep it easy: Word + special + number + word
-    import random
-    words = ["Sky", "Mint", "Wolf", "Nova", "Luna", "Aqua", "Pixel","aBc","xyZ","Greet",]
-    specials = ["@", "#", "$", "!", "%", "&"]
-    w1 = random.choice(words)
-    w2 = random.choice(words)
+    # --------------------------
+    # Inner function: random_case
+    # --------------------------
+    def random_case(word: str) -> str:
+        """
+        Randomly changes some letters in the word to uppercase or lowercase.
+        Example: "Wolf" -> "wOlF" or "WOLF"
+        """
+        new_word = ""
+        for c in word:
+            if random.choice([True, False]):
+                new_word += c.upper()
+            else:
+                new_word += c.lower()
+        return new_word
+
+    # List of words and symbols to choose from
+    words = ["Sky", "Mint", "Wolf", "Nova", "Luna", "Aqua", 
+             "Pixel", "Greet", "Cloud", "Cipher", "Zen", "Echo", 
+             "Storm", "Glide", "Frost", "Wave"]
+
+    specials = ["@", "#", "$", "!", "%", "&", "*"]
+
+    # STEP 1: Pick 3 random words (all different)
+    chosen_words = random.sample(words, 3)
+
+    # STEP 2: Apply random_case to each word
+    changed_words = []
+    for w in chosen_words:
+        changed_words.append(random_case(w))
+
+    # STEP 3: Pick one random special character
     sp = random.choice(specials)
-    num = random.randint(100, 999)
-    # Example: Sky@Mint742
-    return w1 + sp + w2 + str(num)
+
+    # STEP 4: Pick a random number (10–9999)
+    num = str(random.randint(10, 9999))
+
+    # STEP 5: Combine everything
+    parts = changed_words + [sp, num]
+
+    # STEP 6: Shuffle order
+    random.shuffle(parts)
+
+    # STEP 7: Join into one string
+    password = "".join(parts)
+
+    return password
+
+
+# ------------------------------
+# Wrapper for running directly
+# ------------------------------
+def run_password_checker():
+    banner_heading("Password Strength Checker")
+
+    password = input("Enter a password to evaluate: ")
+
+    strength, feedback = check_password(password)
+
+    banner_summary("Password Analysis")
+
+    print(f"\nResult: {strength}")
+    if feedback:
+        print("\nRecommendations:")
+        for reason in feedback:
+            print(f"  - {reason}")
+        print(f"\nSuggested Strong Password Example: {suggest_password()}")
+    else:
+        print("\n[+] Your password meets all recommended security standards.")
+        print(f"[Optional] Even stronger example: {suggest_password()}")
+
+
+# ------------------------------
+# Run if executed directly
+# ------------------------------
+if __name__ == "__main__":
+    run_password_checker()
