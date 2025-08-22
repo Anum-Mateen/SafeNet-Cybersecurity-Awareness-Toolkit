@@ -1,78 +1,68 @@
 # breach.py — SafeNet
-# This file checks if a given Email, Password, or URL is:
-#   → Breached (already leaked / unsafe)
-#   → Suspicious (random nonsense, not valid)
-#   → Safe (valid but not leaked)
+# This file checks if a given Email/Username is:
+#   → Breached (already leaked / unsafe, shows source + password)
+#   → Safe (valid but not found in breach dataset)
+#
+# Mock Data Breach Checker
+# Checks input email/username against mock breached data
+# Case-insensitive matching
 
-import re  # regular expressions (used for simple email check)
+from data.mock_breached_data import BREACHED_ACCOUNTS
+from banner import banner_heading, banner_summary   
+
 
 # ------------------------------
 # Function: is_breached
 # ------------------------------
-def is_breached(text: str) -> bool:
+def is_breached(account: str) -> dict | None:
     """
-    Check if the input (email/password/url) is breached.
+    Check if the input account (email/username) is in the mock breached data.
     Returns:
-      True  → if text is in breached_list (unsafe)
-      False → if text is safe or suspicious
+      Dictionary with breach info → if breached
+      None → if not found (safe)
     """
+    account_lower = account.lower()
 
-    # STEP 1: Create a breached list (sample database)
-    # In real projects → this would be very big (millions of records)
-    breached_list = [
-        # Common weak passwords
-        "123456", "password", "qwerty", "abc123", "iloveyou",
+    # STEP 1: Search in BREACHED_ACCOUNTS
+    for entry in BREACHED_ACCOUNTS:
+        if (
+            entry["email"].lower() == account_lower
+            or entry["username"].lower() == account_lower
+        ):
+            return entry    # return the full breach record (email, username, source, password)
 
-        # Example leaked emails
-        "test@example.com", "admin@gmail.com", "fake@yahoo.com",
-
-        # Example dangerous URLs
-        "http://badsite.com", "https://phishing.com", "http://malicious.net"
-    ]
-
-    # STEP 2: Decide what type of input this is
-    # → Is it an email? (looks like something@domain.com)
-    is_email = re.match(r"^[^@]+@[^@]+\.[^@]+$", text)
-
-    # → Is it a URL? (starts with http:// or https://)
-    is_url = text.startswith("http://") or text.startswith("https://")
-
-    # → Is it a password-like string? (at least 6 chars, letters/numbers only)
-    is_password_like = (
-    len(text) >= 6
-    and re.search(r"[A-Z]", text)   # at least one capital letter
-    and re.search(r"[a-z]", text)   # at least one small letter
-    and re.search(r"[0-9]", text)   # at least one number
-    and re.search(r"[^A-Za-z0-9]", text)  # at least one special char
-)
-
-    
-
-     # STEP 3: Suspicious Check
-     # If input does not look like email, url, or password → it's nonsense
-    if not (is_email or is_url or is_password_like):
-        print("⚠️ Suspicious Input: Looks like random nonsense.")
-        return False   # Still return False, so main.py shows "Safe"
-
-    # STEP 4: Breach Check
-    # If input matches something inside breached_list → it's leaked
-    if text in breached_list:
-        return True
-
-    # STEP 5: Otherwise → it's valid but not leaked → Safe
-    return False
+    # STEP 2: If not found → Safe
+    return None
 
 
 # ------------------------------
-# TESTING (only runs if you run breach.py directly)
+# Wrapper Function for Main
+# ------------------------------
+def run_breach_checker():
+    """
+    Runs a simple prompt asking the user for an email/username
+    and checks against mock breach data.
+    """
+    # ✅ Banner heading
+    banner_heading("Cybersecurity Breach Checker")
+
+    account = input("Enter your email/username to check: ")
+
+    banner_summary("Breach Check Summary")
+    
+    result = is_breached(account)
+    if result:
+        print(f"\n[!] ALERT: {account} was found in a breach!")
+        print(f"\t → Email: {result['email']}")
+        print(f"\t → Username: {result['username']}")
+        print(f"\t → Source: {result['source']}")
+        print(f"\t → Password: {result['password']}")
+    else:
+        print(f"\n[+] SAFE: {account} was NOT found in any breach.")
+
+
+# ------------------------------
+# TESTING (only runs if run directly)
 # ------------------------------
 if __name__ == "__main__":
-    # Try some examples
-    samples = ["123456", "helloWorld", "test@example.com", "ifewoeo", "https://good.com"]
-
-    for item in samples:
-        result = is_breached(item)
-        if result:
-            print(item, "→ Breached ❌")
-        else:
-            print(item, "→ Safe ✅ (or Suspicious if nonsense)")
+    run_breach_checker()
