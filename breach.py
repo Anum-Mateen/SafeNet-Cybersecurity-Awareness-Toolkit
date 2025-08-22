@@ -57,8 +57,10 @@ def run_breach_checker():
         print(f"\t → Username: {result['username']}")
         print(f"\t → Source: {result['source']}")
         print(f"\t → Password: {result['password']}")
+        print("\nPlease change your password immediately!")
+        print()
     else:
-        print(f"\n[+] SAFE: {account} was NOT found in any breach.")
+        print(f"\n[+] SAFE: {account} was NOT found in any breach.\n")
 
 
 # ------------------------------
