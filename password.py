@@ -139,10 +139,10 @@ def run_password_checker():
         print("\nRecommendations:")
         for reason in feedback:
             print(f"  - {reason}")
-        print(f"\nSuggested Strong Password Example: {suggest_password()}")
+        print(f"\nSuggested Strong Password Example: {suggest_password()}\n")
     else:
         print("\n[+] Your password meets all recommended security standards.")
-        print(f"[Optional] Even stronger example: {suggest_password()}")
+        print(f"[Optional] Even stronger example: {suggest_password()}\n")
 
 
 # ------------------------------
