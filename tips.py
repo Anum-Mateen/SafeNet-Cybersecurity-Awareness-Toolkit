@@ -1,12 +1,22 @@
-from banner import banner_heading
+# tips.py — SafeNet
+# ---------------------------------------------------------
+# Cybersecurity Tips Generator
+# Stores 30+ immutable tips and provides random selection
+# 1–3 tips per request
+# ---------------------------------------------------------
+
+from banner import banner_heading, banner_summary
 import random
 
+# ------------------------------
+# Immutable cybersecurity tips
+# ------------------------------
 TIPS = (
     "Use a password manager to generate unique, complex passwords.",
     "Enable two-factor authentication (2FA) for all important accounts.",
     "Keep your operating system and applications up to date.",
     "Do not click links or open attachments from unknown sources.",
-    "Verify the sender’s email address carefully before responding.",
+    "Verify the sender's email address carefully before responding.",
     "Ensure websites use HTTPS before entering sensitive information.",
     "Back up important files to secure, offline storage regularly.",
     "Lock your computer and phone when not in use.",
@@ -34,25 +44,46 @@ TIPS = (
     "Shred or securely dispose of documents with personal data.",
 )
 
-def get_tips(n: int = 3):
+# ---------------------------------
+# Helper: Get valid number of tips
+# ---------------------------------
+def get_num_tips() -> int:
+    """Ask user how many tips they want and ensure it's within 1-3."""
+    try:
+        num = int(input("How many tips would you like (1-3)? ").strip())
+    except ValueError:
+        num = 3  # Default if invalid
+    return max(1, min(3, num))  # Clamp between 1 and 3
+
+# ------------------------------
+# Function: get_tips
+# ------------------------------
+def get_tips() -> list[str]:
     """
-    Show cybersecurity tips.
-    n: Number of tips to return (1-3).
+    Display random cybersecurity tips.
+    Returns:
+        List of selected tips.
     """
-    # Print a heading for tips section
+
+    # Show banner heading
     banner_heading("Cybersecurity Awareness Tips")
 
-    # Keep n between 1 and 3
-    if n < 1:
-        n = 1
-    elif n > 3:
-        n = 3
+    # Ask once, no repeated logic
+    num_tips = get_num_tips()
 
-    # Pick n random tips (no repeats)
-    selected_tips = random.sample(TIPS, n)
+    # Randomly pick tips without repeats
+    selected_tips = random.sample(TIPS, num_tips)
 
-    # Display each tip in a nice format
-    for i, tip in enumerate(selected_tips, start=1):
-        print(f"{i}. {tip}\n")
-
+    # Display tips
+    banner_summary("Your Cybersecurity Tips")
+    for idx, tip in enumerate(selected_tips, start=1):
+        print(f"\n  {idx}. {tip}")
+    
+    print()
     return selected_tips
+
+# ------------------------------
+# Run tips generator directly
+# ------------------------------
+if __name__ == "__main__":
+    get_tips()
