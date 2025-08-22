@@ -1,0 +1,60 @@
+"""
+Mock breached account dataset
+--------------------------------
+⚠️ Disclaimer:
+This is only MOCK data created for testing a breach checker project.
+It does not contain any real leaked credentials.
+"""
+
+# A list of dictionaries to simulate breached accounts
+BREACHED_ACCOUNTS = [
+    {"email": "john.doe@example.com", "source": "MockSite A (2021)", "password": "password123"},
+    {"email": "jane.smith@example.org", "source": "MockSite B (2020)", "password": "qwerty!@#"},
+    {"email": "alice.wonderland@example.net", "source": "MockSite C (2019)", "password": "alice2020"},
+    {"email": "bob.builder@example.com", "source": "MockSite D (2022)", "password": "canwefixit"},
+    {"email": "charlie.brown@example.org", "source": "MockSite E (2018)", "password": "snoopyLove"},
+    {"email": "eve.hacker@example.com", "source": "MockSite F (2023)", "password": "123456789"},
+    {"email": "michael.scott@dundermifflin.com", "source": "PaperCo Leak (2021)", "password": "worldsbestboss"},
+    {"email": "dwight.schrute@dundermifflin.com", "source": "PaperCo Leak (2021)", "password": "beetsbears"},
+    {"email": "pam.beesly@dundermifflin.com", "source": "PaperCo Leak (2021)", "password": "artl0ver"},
+    {"email": "jim.halpert@dundermifflin.com", "source": "PaperCo Leak (2021)", "password": "prankking"},
+    {"email": "tony.stark@avengers.com", "source": "StarkNet Breach (2020)", "password": "iamironman"},
+    {"email": "steve.rogers@avengers.com", "source": "StarkNet Breach (2020)", "password": "shield1945"},
+    {"email": "bruce.banner@avengers.com", "source": "StarkNet Breach (2020)", "password": "hulksmash"},
+    {"email": "natasha.romanoff@avengers.com", "source": "StarkNet Breach (2020)", "password": "blackwidow"},
+    {"email": "thor.odinson@avengers.com", "source": "StarkNet Breach (2020)", "password": "mjolnir"},
+    {"email": "luke.skywalker@jedi.com", "source": "GalacticNet Leak (2019)", "password": "usetheforce"},
+    {"email": "leia.organa@jedi.com", "source": "GalacticNet Leak (2019)", "password": "princess123"},
+    {"email": "han.solo@falcon.com", "source": "GalacticNet Leak (2019)", "password": "kesselrun"},
+    {"email": "darth.vader@empire.com", "source": "EmpireDB Hack (2022)", "password": "darkside"},
+    {"email": "palpatine@empire.com", "source": "EmpireDB Hack (2022)", "password": "unlimitedpower"},
+    {"email": "frodo.baggins@shire.net", "source": "MiddleEarth Breach (2018)", "password": "ringbearer"},
+    {"email": "samwise.gamgee@shire.net", "source": "MiddleEarth Breach (2018)", "password": "poTatoes"},
+    {"email": "gandalf@istari.org", "source": "MiddleEarth Breach (2018)", "password": "youshallnotpass"},
+    {"email": "aragorn@gondor.net", "source": "MiddleEarth Breach (2018)", "password": "strider"},
+    {"email": "legolas@elfmail.com", "source": "MiddleEarth Breach (2018)", "password": "archerking"},
+    {"email": "harry.potter@hogwarts.edu", "source": "WizardNet Leak (2021)", "password": "expelliarmus"},
+    {"email": "hermione.granger@hogwarts.edu", "source": "WizardNet Leak (2021)", "password": "leviosa"},
+    {"email": "ron.weasley@hogwarts.edu", "source": "WizardNet Leak (2021)", "password": "scabbers123"},
+    {"email": "albus.dumbledore@hogwarts.edu", "source": "WizardNet Leak (2021)", "password": "elderwand"},
+    {"email": "severus.snape@hogwarts.edu", "source": "WizardNet Leak (2021)", "password": "halfbloodprince"},
+    {"email": "katniss.everdeen@district12.org", "source": "CapitolDB Breach (2019)", "password": "mockingjay"},
+    {"email": "peeta.mellark@district12.org", "source": "CapitolDB Breach (2019)", "password": "bakerboy"},
+    {"email": "gale.hawthorne@district12.org", "source": "CapitolDB Breach (2019)", "password": "hunter123"},
+    {"email": "joker@gotham.com", "source": "Arkham Breach (2020)", "password": "whysoserious"},
+    {"email": "bruce.wayne@gotham.com", "source": "WayneNet Leak (2020)", "password": "iambatman"},
+    {"email": "alfred.pennyworth@gotham.com", "source": "WayneNet Leak (2020)", "password": "batbutler"},
+    {"email": "clark.kent@dailyplanet.com", "source": "Metropolis Breach (2021)", "password": "superman"},
+    {"email": "lois.lane@dailyplanet.com", "source": "Metropolis Breach (2021)", "password": "reporterlife"},
+    {"email": "lex.luthor@lexcorp.com", "source": "LexCorp Breach (2019)", "password": "kryptonite"},
+    {"email": "arthur.curry@atlantis.com", "source": "OceanDB Leak (2022)", "password": "aquaman"},
+    {"email": "barry.allen@ccpd.com", "source": "SpeedForce Breach (2019)", "password": "fastestman"},
+    {"email": "wally.west@ccpd.com", "source": "SpeedForce Breach (2019)", "password": "kidflash"},
+    {"email": "diana.prince@themiscira.org", "source": "AmazonNet Leak (2018)", "password": "wonderwoman"},
+    {"email": "peter.parker@dailybugle.com", "source": "Bugle Breach (2021)", "password": "spiderman"},
+    {"email": "mary.jane@dailybugle.com", "source": "Bugle Breach (2021)", "password": "redheadMJ"},
+    {"email": "miles.morales@dailybugle.com", "source": "Bugle Breach (2021)", "password": "spiderverse"},
+    {"email": "doctor.strange@sanctum.com", "source": "MysticDB Leak (2020)", "password": "slingring"},
+    {"email": "wanda.maximoff@avengers.com", "source": "MysticDB Leak (2020)", "password": "scarletwitch"},
+    {"email": "vision@avengers.com", "source": "MysticDB Leak (2020)", "password": "mindstone"},
+]
