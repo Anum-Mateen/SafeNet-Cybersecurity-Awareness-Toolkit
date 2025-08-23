@@ -4,145 +4,70 @@
 ![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
 ![Repo Size](https://img.shields.io/github/repo-size/Anum-Mateen/SafeNet-Cybersecurity-Awareness-Toolkit)
 ![Last Commit](https://img.shields.io/github/last-commit/Anum-Mateen/SafeNet-Cybersecurity-Awareness-Toolkit)
+[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](https://github.com/Anum-Mateen/SafeNet-Cybersecurity-Awareness-Toolkit/issues)
 
-> A CLI toolkit for cybersecurity learning, testing, and awareness.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Anum-Mateen/SafeNet-Cybersecurity-Awareness-Toolkit/main/TITLE.png" alt="SafeNet Title Screenshot" width="700"/>
+</p>
+
+> A comprehensive command-line interface (CLI) toolkit for cybersecurity education and awareness, featuring interactive learning modules and practical security tools.
 
 ---
 
 ## 📑 Table of Contents  
-- [About the Project](#-about-the-project)  
-- [Features](#-features)  
-- [Project Structure](#-project-structure)  
-- [Prerequisites](#-prerequisites)  
-- [Features in Detail](#-features-in-detail)  
-- [Team & Responsibilities](#-team--responsibilities)  
-- [Installation](#installation)  
-- [Usage](#usage)
-- [Data Storage](#-data-storage)  
-- [Development Timeline](#-development-timeline)  
-- [Testing Checklist](#-testing-checklist)  
-- [License](#-license)  
-- [Demo Screenshots](#-demo-screenshots)  
-- [Authors](#-authors)  
+- [🔐 SafeNet — Cybersecurity Awareness Toolkit (CLI)](#-safenet--cybersecurity-awareness-toolkit-cli)
+  - [📑 Table of Contents](#-table-of-contents)
+  - [📖 Overview](#-overview)
+  - [✨ Features](#-features)
+  - [📦 Installation](#-installation)
+    - [⚙ Prerequisites](#-prerequisites)
+    - [⚙️ Setup Instructions](#️-setup-instructions)
+  - [🚀 Step-by-Step Usage](#-step-by-step-usage)
+  - [📂 Project Structure](#-project-structure)
+  - [🛠️ Module Details](#️-module-details)
+  - [👥 Development Team](#-development-team)
+    - [Anum Mateen *(Project Leader)*](#anum-mateen-project-leader)
+    - [Syeda Muqaddas Bibi *(Contributor)*](#syeda-muqaddas-bibi-contributor)
+  - [🔧 Technical Details](#-technical-details)
+    - [Data Storage](#data-storage)
+    - [Compatibility](#compatibility)
+    - [Project Architecture](#project-architecture)
+  - [📋 Testing](#-testing)
+  - [📜 License](#-license)
+  - [🤝 Contributing](#-contributing)
+  - [📞 Support](#-support)
+  - [🎯 Future Enhancements](#-future-enhancements)
 
 ---
 
 
-## 📖 About the Project  
+## 📖 Overview  
 
-**SafeNet** is a Python-based Cybersecurity Awareness Toolkit built as a **BanoQabil 4.0 Summer (Advanced Python & FastAPI)** mid-term project, taught by **Sir Shaukat Sohail**.  
+**SafeNet** is a Python-based Cybersecurity Awareness Toolkit developed as part of the **BanoQabil 4.0 Summer (Advanced Python & FastAPI)** mid-term project, taught by **[Sir Shaukat Sohail](https://github.com/Shaukat456)**.  
 It is a **pure Python, menu-driven CLI tool** designed to educate, test, and protect users through interactive learning and practical cybersecurity tools.
 
 ---
 
 ## ✨ Features  
 
-- 📝 **Cybersecurity Quiz** – Test your knowledge with interactive questions  
-- 🎯 **Phishing Detection** – Learn to identify phishing attempts  
-- 🔑 **Password Strength Checker** – Check and improve your passwords  
-- 📢 **Security Tips Generator** – Get random safety tips  
-- 🚨 **Data Breach Simulator** – Understand how breaches affect users  
-- 📊 **Stats & Leaderboard** – Track your progress  
+- 🧠 **Interactive Cybersecurity Quiz** – Multiple difficulty levels with scoring system
+- 🎣 **Phishing Detection** – Identify suspicious URLs and email addresses
+- 🔐 **Password Strength Analyzer** – Evaluate and improve password security
+- 💡 **Security Tips Generator** – Get actionable cybersecurity advice
+- 🔍 **Data Breach Simulator** – Understand breach impacts with mock data
+- 📊 **Performance Statistics** – Track progress with personal stats and leaderboard
 
 ---
 
-## 📂 Project Structure
+## 📦 Installation
 
-```plaintext
-SafeNet/
-│
-├── main.py             # Program entry & menu loop
-├── quiz.py             # Quiz logic & question bank handling
-├── phish.py            # Phishing detection logic
-├── password.py         # Password strength checker
-├── tips.py             # Cybersecurity tips generator
-├── breach.py           # Data breach simulator
-├── stats.py            # Stats & leaderboard handling
-├── utils.py            # Shared helper functions
-├── data/               # Data storage directory
-│   ├── questions.json        # Quiz questions database
-│   ├── breached_accounts.json # Simulated breach data
-│   ├── leaderboard.json      # User scores and rankings
-│
-├── README.md           # Project documentation
-├── .gitignore          # Git exclusion rules
-└── requirements.txt    # Python dependencies (if needed)
-```
-
----
-
-## ⚙ Prerequisites  
+### ⚙ Prerequisites  
 
 - **Python 3.8+** is required to run this project.  
-- To check your Python version:  
+- **Git** (for cloning the repository)
+- ***Note:** This project uses only standard Python libraries. No extra installation is required.*
 
-```bash
-python --version
-```
-
----
-
-## 🚀 Features in detail
-
-- **Multi-level Cybersecurity Quiz**
-  - Beginner, Intermediate, Advanced
-  - Randomized questions, no repeats per session
-  - Score tracking & progress history
-
-- **Phishing Email/URL Detector**
-  - Detects suspicious patterns in links and emails
-  - Finds insecure protocols, suspicious keywords, misspelled domains
-
-- **Password Strength Checker**
-  - Evaluates length, character variety, and complexity
-  - Gives actionable improvement suggestions
-
-- **Cybersecurity Tips Generator**
-  - 20+ immutable tips stored in tuples
-  - Random selection (1–3 per request)
-
-- **Mock Data Breach Checker**
-  - Checks input email/username against mock breached data
-  - Case-insensitive matching
-
-- **Stats & Leaderboard**
-  - Tracks quiz scores, phishing detections, and password checks
-  - Saves per-user history and displays the leaderboard
-
----
-
-## 👥 Team & Responsibilities
-
-**Member A — [Anum Mateen](https://github.com/Anum-Mateen)** *(Backend & Learning Flow)*  
-- Modules: `quiz.py`, `tips.py`, `stats.py` (primary), assists in `utils.py`
-- **Key Tasks:**
-  - Create question bank (30+ questions, 10 per level)
-  - Implement quiz logic, randomization, and scoring
-  - Create a tips generator with 20+ entries
-  - Implement JSON-based stats storage & leaderboard
-  - Provide test data (`questions.json`, sample `leaderboard.json`)
-  - Review Member B's code
-
-**Member B — [Syeda Muqaddas Bibi](https://github.com/syeda-muqaddas)** *(Detection & Security Tools)*  
-- Modules: `phish.py`, `password.py`, `breach.py` (primary), assists in `utils.py`
-- **Key Tasks:**
-  - Implement phishing detection rules (protocol, keywords, domain checks)
-  - Implement password strength analysis & suggestions
-  - Create a mock breached accounts database
-  - Implement breach simulator logic
-  - Provide test cases for phishing/password/breach checks
-  - Review Member A's code
-
-**Shared / Joint Responsibilities**
-- Integration in `main.py`
-- Writing helper functions in `utils.py`
-- Cross-testing and debugging
-- Writing documentation (`README.md`)
-- Preparing presentation & demo
-
----
-
-## ⚙️ Installation
+### ⚙️ Setup Instructions
 
 1. **Clone the repository**
    ```bash
@@ -150,75 +75,189 @@ python --version
    cd SafeNet-Cybersecurity-Awareness-Toolkit
    ```
 
- 2. **Install dependencies (if required)**
+2. **Verify Python installation**
     ```bash
-    pip install -r requirements.txt
+    python --version
+    # Should return: Python 3.8.x or higher
     ```
-    *If no external libraries are used, this step can be skipped.*
+
+---
+
+## 🚀 Step-by-Step Usage
+
+1. **Run the toolkit**
+   ```bash
+   python main.py
+   ```
+
+2. **Enter your username** when prompted.
+
+3. You'll be **presented with the main menu** to access different features of the toolkit.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Anum-Mateen/SafeNet-Cybersecurity-Awareness-Toolkit/main/MENU.png" alt="SafeNet Main Menu Screenshot" width="700"/>
+</p>
+
+4. **Navigation:** Use number keys to select options and follow the on-screen instructions.
+
+---
+
+## 📂 Project Structure
+
+```plaintext
+SafeNet-Cybersecurity-Awareness-Toolkit/
+|
+├── main.py                # Main application entry point
+├── quiz.py                # Quiz module implementation
+├── phish.py               # Phishing detection functionality
+├── password.py            # Password strength checking
+├── tips.py                # Security tips generator
+├── breach.py              # Data breach simulation
+├── stats.py               # Statistics and leaderboard handling
+├── data/                  # Data storage directory
+│   ├── quiz_questions.py       # Quiz questions database
+│   ├── mock_breached_data.py   # Mock breach data
+│   └── leaderboard_data.py     # User performance records
+├── LICENSE                # MIT License file
+├── README.md              # Project documentation
+└── .gitignore             # Git exclusion rules
+```
+***⚡ Note:** Unlike JSON files, data is stored in Python dictionaries (`.py` files) due to scope limitations. This keeps the toolkit lightweight and dependency-free.*
+
+
+---
+
+## 🛠️ Module Details
+
+1. **Cybersecurity Quiz**
+   - Three difficulty levels: Beginner, Intermediate, Advanced
+   - Randomized question selection
+   - Immediate feedback and explanations
+   - Score tracking and progress saving
+
+2. **Phishing Email/URL Detector**
+   - Analyzes URLs for suspicious patterns
+   - Checks for known phishing indicators
+   - Validates email address structures
+   - Provides detailed risk assessment
+
+3. **Password Strength Checker**
+   - Evaluates password complexity
+   - Provides strength score (0-100)
+   - Offers improvement suggestions
+   - Checks against common weak passwords
+
+4. **Cybersecurity Tips Generator**
+   - Curated cybersecurity best practices
+   - Random selection (1–3 per request)
+
+5. **Mock Data Breach Checker**
+   - Mock database of breached accounts
+   - Educational simulation of breach impacts
+   - Demonstrates importance of password hygiene
+
+6. **Stats & Leaderboard**
+   - Personal performance tracking
+   - Historical score data
+   - Comparative leaderboard
+   - Achievement system
+
+---
+
+## 👥 Development Team
+
+### [Anum Mateen](https://github.com/Anum-Mateen) *(Project Leader)*
+- **Role:** Project Lead & Full-Stack Developer
+- **Primary Contributions:**
+  -   Overall project architecture and design
+  -   Main application entry point (`main.py`)
+  -   Comprehensive quiz system with 30+ questions (`quiz.py`)
+  -   Security tips generator module (`tips.py`)
+  -   Statistics and leaderboard system (`stats.py`)
+  -   Data structure design and `/data/*.py` implementation
+  -   Project documentation and README
+  -   Integration of all modules
+  -   Testing and debugging across all components
+
+### [Syeda Muqaddas Bibi](https://github.com/syeda-muqaddas) *(Contributor)*
+- **Role:** Module Contributor
+- **Contributions:**
+  -   Phishing detection module (`phish.py`)
+  -   Password strength analyzer (`password.py`)
+  -   Data breach simulation module (`breach.py`)
+
+---
+
+## 🔧 Technical Details
+
+### Data Storage
+
+All data is stored in Python dictionary format within the `/data` directory. Files created by the development team include:
+-   `quiz_questions.py`: Quiz questions and answers (created by Anum Mateen)
+-   `leaderboard_data.py`: User statistics and scores (created by Anum Mateen)
+-   `mock_breached_data.py`: Simulated breach data (provided by contributor)
+
+### Compatibility
+
+-   Compatible with Windows, macOS, and Linux systems
+-   Built using standard Python libraries only
+-   No external dependencies required
+-   Lightweight and easy to deploy
+
+### Project Architecture
+
+The project follows a modular architecture with clear separation of concerns:
+-   **Core Framework:** Developed by Anum Mateen (`main.py`)
+-   **Educational Modules:** Quiz and tips system by Anum Mateen
+-   **Security Tools:** Phishing, password, and breach modules integrated from the contributor
+-   **Data Management:** Python-based dictionary storage system implemented by Anum Mateen
  
 ---
 
-## ▶️ Usage
- 
-**Run the toolkit:**
- ```bash
- python main.py
- ```
- 
-**Follow the menu prompts to:**
- - Take the quiz
- - Detect phishing attempts
- - Test password strength
- - Get cybersecurity tips
- - Check for mock data breaches
- - View your stats & leaderboard
- 
----
+## 📋 Testing
 
-## 🗂 Data Storage
-
- - `questions.json` → Quiz questions & answers
- - `leaderboard.json` → User scores & stats
- - `breached_accounts.json` → Mock breach database
- 
-*All stored in `/data` directory in JSON format.*
- 
----
-
-## 📅 Development Timeline
-
- | Day | Task                                      | Owner      |
- |-----|-------------------------------------------|------------|
- | 1   | Repo setup, module stubs, sample JSON files | Both       |
- | 2   | Quiz system & question bank               | Anum       |
- | 2   | Phishing detection & password checker     | Muqaddas   |
- | 3   | Tips generator & stats storage skeleton   | Anum       |
- | 3   | Breach simulator                          | Muqaddas   |
- | 4   | Integration, finalize stats/leaderboard, manual testing | Both |
- | 5   | Polish, write README, run demo, prepare presentation | Both |
- 
----
-
-## ✅ Testing Checklist
- - [ ] Quiz runs for all levels & saves scores
- - [ ] Phishing detector catches multiple suspicious patterns
- - [ ] Password checker scores correctly with suggestions
- - [ ] Breach simulator finds or does not find entries as expected
- - [ ] Stats update correctly after each activity
- - [ ] No crashes on invalid input
+The application includes comprehensive functionality testing:
+-   Quiz system with all difficulty levels
+-   Phishing Detection with various input types
+-   Password strength evaluation accuracy
+-   Data breach simulation functionality
+-   Statistics tracking and leaderboard updates
+-   Error handling for invalid inputs
  
 ---
 
 ## 📜 License  
-Licensed under the [MIT License](https://github.com/Anum-Mateen/SafeNet-Cybersecurity-Awareness-Toolkit/blob/main/LICENSE).  
+This project is licensed under the **MIT License** - see the [MIT License](https://github.com/Anum-Mateen/SafeNet-Cybersecurity-Awareness-Toolkit/blob/main/LICENSE) file for details.  
 
 ---
 
- ## 📸 Demo Screenshots
- (To be added after project completion)
- 
+## 🤝 Contributing
+
+We welcome contributions to enhance SafeNet! Please feel free to:
+-   Submit bug reports or feature requests
+-   Suggest additional quiz questions
+-   Improve detection algorithms
+-   Enhance the user experience
+
 ---
 
-## 🏆 Authors
- - **[Anum Mateen](https://github.com/Anum-Mateen)** — Quiz, Tips, Stats
- - **[Syeda Muqaddas Bibi](https://github.com/syeda-muqaddas)** — Phishing, Password, Breach
+## 📞 Support
+
+For questions or support regarding this project, please contact:
+-   Anum Mateen: [GitHub Profile](https://github.com/Anum-Mateen)
+-   Syeda Muqaddas Bibi: [GitHub Profile](https://github.com/syeda-muqaddas)
+
+---
+
+## 🎯 Future Enhancements
+
+Potential improvements for future versions:
+-   GUI implementation alongside CLI
+-   Integration with FastAPI as taught in the course
+-   Store data in JSON format
+-   Additional cybersecurity modules
+-   Docker support for easy deployment
+-   Real-time threat intelligence integration
+-   Multi-language support
+-   Mobile application version
+
+---
