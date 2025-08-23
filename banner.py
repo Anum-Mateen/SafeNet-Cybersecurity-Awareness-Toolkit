@@ -24,6 +24,18 @@ quizzes,    phishing    detection,    password   checks,  and   more.{RESET}
     print(art)
 
 
+def banner_menu():
+    art = f"""  _____ ___   ___  _     _  _____ _____   __  __ _____ _   _ _   _ 
+ |_   _/ _ \ / _ \| |   | |/ /_ _|_   _| |  \/  | ____| \ | | | | |
+   | || | | | | | | |   | ' / | |  | |   | |\/| |  _| |  \| | | | |
+   | || |_| | |_| | |___| . \ | |  | |   | |  | | |___| |\  | |_| |
+   |_| \___/ \___/|_____|_|\_\___| |_|   |_|  |_|_____|_| \_|\___/ 
+"""                                                                         
+    print(f"\n{GREEN}{'=' * 70}{RESET}")
+    print(f"{CYAN}{art}{RESET}")
+    print(f"{GREEN}{'=' * 70}{RESET}\n")
+
+
 def banner_heading(title: str):
     """
     Display a section heading with a fixed-width SafeNet style.
