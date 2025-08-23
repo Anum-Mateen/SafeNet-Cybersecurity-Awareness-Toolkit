@@ -1,0 +1,2 @@
+# Auto-generated user stats — SafeNet
+USER_STATS = {'Anum': {'quiz_scores': {'beginner': [60.0], 'intermediate': [], 'advanced': []}, 'phishing_checks': 0, 'suspicious_found': 0, 'password_checks': 0, 'breach_checks': 0, 'last_active': '2025-08-24 00:39:35'}, 'Amna': {'quiz_scores': {'beginner': [100.0], 'intermediate': [], 'advanced': []}, 'phishing_checks': 0, 'suspicious_found': 0, 'password_checks': 0, 'breach_checks': 0, 'last_active': '2025-08-24 00:41:03'}}
