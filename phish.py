@@ -152,12 +152,16 @@ def detect_phishing(text: str):
     # Final verdict
     if score >= 60:
         verdict = "[!] ALERT: HIGH RISK"
+        suspicious = True
     elif score >= 40:
         verdict = "[-] INSECURE: SUSPICIOUS"
+        suspicious = True
     elif score >= 20:
         verdict = "[-] INSECURE: REVIEW ADVISED"
+        suspicious = True
     else:
         verdict = "[+] SAFE"
+        suspicious = False
 
     # Suggestion
     suggestion = None
@@ -169,7 +173,7 @@ def detect_phishing(text: str):
         else:
             suggestion = "  [+] Tip: Provide a full email (user@domain.tld) or full URL (https://domain.tld)."
 
-    return verdict, score, reasons, suggestion
+    return verdict, suspicious, score, reasons, suggestion
 
 
 # ------------------------------
@@ -179,7 +183,7 @@ def input_phish():
     banner_heading("Phishing Email/URL Detector")
     user_input = input("Enter an email or URL to check: ").strip()
 
-    verdict, score, reasons, suggestion = detect_phishing(user_input)
+    verdict, suspicious, score, reasons, suggestion = detect_phishing(user_input)
 
     banner_summary("Phishing Analysis")
     print(f"\nResult: {verdict}  (Risk Score: {score})")
@@ -188,7 +192,10 @@ def input_phish():
         for r in reasons:
             print(f"  {r}")
     if suggestion:
-        print(f"\nRecommendation:\n{suggestion}\n")
+        print(f"\nRecommendation:\n{suggestion}")
+    
+    print()
+    return suspicious
 
 
 if __name__ == "__main__":
