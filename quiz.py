@@ -114,9 +114,10 @@ def start_quiz():
     percentage = (score / total) * 100
     print(f"Percentage: {percentage:.2f}%")
     print(f"{quiz_feedback(score, total)}\n")
+    return level, percentage
 
 # ------------------------------
 # Run if executed directly
 # ------------------------------
 if __name__ == "__main__":
-    start_quiz()
+    result = start_quiz()
