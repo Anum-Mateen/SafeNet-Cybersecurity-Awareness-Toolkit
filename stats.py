@@ -9,7 +9,7 @@
 from datetime import datetime
 import importlib
 import data.leaderboard_data as db   # storage file
-from banner import banner_heading
+from banner import banner_heading, banner_summary
 
 # ------------------------------
 # Global in-memory storage
@@ -123,23 +123,32 @@ def display_user_stats(username: str):
     print(f"- Password Checks: {stats['password_checks']}")
     print(f"- Breach Checks: {stats['breach_checks']}")
 
-def get_leaderboard():
-    """Return a sorted leaderboard by best overall quiz score (any level)."""
+
+def get_level_leaderboard(level: str):
+    """Return leaderboard for a specific quiz level."""
     leaderboard = []
     for user, stats in db.USER_STATS.items():
-        all_scores = []
-        for level_scores in stats["quiz_scores"].values():
-            all_scores.extend(level_scores)
-        best = max(all_scores) if all_scores else 0
+        scores = stats["quiz_scores"].get(level, [])
+        best = max(scores) if scores else 0
         leaderboard.append((user, best))
     leaderboard.sort(key=lambda x: x[1], reverse=True)
     return leaderboard
 
+
 def display_leaderboard():
-    """Print the leaderboard to the CLI."""
-    banner_heading("🏆 Leaderboard — Top Quiz Performers")
-    for rank, (user, score) in enumerate(get_leaderboard(), start=1):
-        print(f"\t{rank}. {user} — {score} pts")
+    """Print the leaderboard level-wise to the CLI."""
+    banner_heading("🏆 Leaderboard — Level-wise Performance")
+
+    for level in ["beginner", "intermediate", "advanced"]:
+        banner_summary(f"Level: {level.capitalize()}")
+        print()
+        leaderboard = get_level_leaderboard(level)
+        if all(score == 0 for _, score in leaderboard):
+            print(" No attempts yet.")
+        else:
+            for rank, (user, score) in enumerate(leaderboard, start=1):
+                if score > 0:
+                    print(f" {rank}. {user} — {score} pts")
     print()
 
 
