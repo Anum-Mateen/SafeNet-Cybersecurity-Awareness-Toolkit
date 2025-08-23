@@ -1,133 +1,195 @@
-# phish.py  — SafeNet 
-# Goal: Check if an input looks like a real email or URL.
-# Uses: lists, loops, strings, if/else, functions.
-# Extra Feature: Suggest safe example email/URL if input is suspicious
+# phish.py — SafeNet
+# ---------------------------------------------------------
+# Phishing Email/URL Detector (Pure Python, no regex)
+# Detects suspicious patterns in links and emails
+# Finds insecure protocols, suspicious keywords, misspelled domains
+# Simple rule-based scoring with one main entry function
+# ---------------------------------------------------------
 
-import random
+from urllib.parse import urlparse
+from banner import banner_heading, banner_summary
 
-# 1) Suspicious keywords list (words that often appear in phishing emails/URLs)
+# ------------------------------
+# Lightweight config
+# ------------------------------
 SUSPICIOUS_KEYWORDS = [
-    "urgent", "verify", "account", "update",
-    "click here", "password", "bank", "login"
+    "urgent", "verify", "account", "update", "click here",
+    "password", "bank", "login", "confirm", "limited",
+    "security alert", "unusual activity"
 ]
 
-# 2) Suspicious parts (strange tokens often found in fake sites)
-SUSPICIOUS_PARTS = [
-    "http://", "paypa1", "xn--", "//verify", "@@", "verify-account"
-]
+# Common high-target brands for simple lookalike checks
+# We’ll flag domains that *contain* these in altered form (e.g., paypa1, faceb00k)
+BRAND_BASE = ["paypal", "google", "microsoft", "apple", "facebook", "amazon", "bank"]
 
-# ---------- helpers ----------
-def is_valid_email(text):
-    """Check if text looks like an email: user@domain.tld""" #tld :top level domain
-    t = text.strip().lower()# strip: Removes extra spaces or unwanted characters from start and end of a string.
-    if t.count("@") != 1:  # must have exactly one "@"
-        return False
-    user, domain = t.split("@") #split: Breaks a string into parts using a separator.
-    if not user or not domain:  # user and domain must not be empty
-        return False
-    if "." not in domain:  # domain must have at least one "."
-        return False
-    if domain.startswith(".") or domain.endswith("."):  # cannot start or end with "."
-        return False
-    allowed_user = "abcdefghijklmnopqrstuvwxyz0123456789._-"
-    for ch in user:  # username only valid characters
-        if ch not in allowed_user:
-            return False
-    for part in domain.split("."):  # each part of domain must not be empty
-        if not part:
-            return False
-    return True
+# Simple character swaps often used in lookalikes
+LEET_MAP = {
+    "0": "o", "1": "l", "3": "e", "4": "a", "5": "s", "7": "t",
+    "@": "a", "$": "s", "!": "i"
+}
 
 
-def is_valid_url(text):
-    """Check if text looks like a URL: http(s)://host..."""
-    t = text.strip().lower()
-    if not (t.startswith("https://") or t.startswith("http://")):
-        return False
-    # Remove http(s):// part
-    body = t[len("https://"):] if t.startswith("https://") else t[len("http://"):]
-    if "." not in body:  # must have a dot after protocol
-        return False
-    host = body.split("/")[0]
-    if not host or host.startswith(".") or host.endswith("."):
-        return False
-    return True
-
-
-# ---------- suggestion helpers ----------
-def suggest_safe_email():
-    """Return a safe example email for user reference"""
-    safe_emails = [
-        "support123@gmail.com",
-        "contact456@gmail.com",
-        "info908@example.com",
-        "helpdesk156@gmail.com",
-        "service842@gmail.com",
-        "nava852@gmail.com",
-    ]
-    return random.choice(safe_emails)
-
-
-def suggest_safe_url():
-    """Return a safe example URL for user reference"""
-    safe_urls = [
-        "https://www.example.com",
-        "https://secure.mybank.com",
-        "https://en.wikipedia.org",
-        "https://portal.govt.pk",
-        "https://contact.cyber.net"
-    ]
-    return random.choice(safe_urls)
-
-
-# ---------- main detector ----------
-def detect_phishing(text):
+# ------------------------------
+# Validation helpers
+# ------------------------------
+def is_valid_email(text: str) -> bool:
     """
-    Returns:
-      (is_suspicious: bool, reasons: list[str], suggestion: str)
+    Very simple email validation:
+    - must contain '@' and '.'
+    - must not start or end with '@'
+    - part before '@' and after '@' must not be empty
     """
+    if "@" not in text or "." not in text:
+        return False
+    if text.startswith("@") or text.endswith("@"):
+        return False
+    if text.count("@") != 1:
+        return False
+    local, domain = text.split("@", 1)
+    return bool(local) and bool(domain)
+
+
+def is_valid_url(text: str) -> bool:
+    """
+    Very simple URL validation:
+    - must start with http:// or https://
+    - must have at least one '.'
+    """
+    return (text.startswith("http://") or text.startswith("https://")) and "." in text
+
+
+def extract_host(text: str) -> str | None:
+    """
+    Returns the host (domain) from a URL or email.
+    """
+    if is_valid_url(text):
+        return urlparse(text).netloc.lower()    # urlparse(text).netloc → domain with port if any
+    elif is_valid_email(text):
+        return text.split("@", 1)[-1].lower()   # text.split("@", 1)[-1] → domain part of email
+    return None
+
+
+def registrable_domain(host: str) -> str:
+    """
+    Gets the base domain (last two parts).
+    Example: mail.security.paypal.com -> paypal.com
+    """
+    parts = host.split(":")[0].split(".")   # remove port if any, then split by '.'
+    if len(parts) >= 2:
+        return ".".join(parts[-2:]) # last two parts
+    return host
+
+
+def normalize_for_lookalike(s: str) -> str:
+    """
+    Replace common leetspeak characters with normal ones.
+    """
+    for k, v in LEET_MAP.items():
+        s = s.replace(k, v)
+    return s
+
+
+# ------------------------------
+# Core detector
+# ------------------------------
+def detect_phishing(text: str):
     reasons = []
-    t = text.strip().lower()
+    score = 0
+    raw = text.strip()  # remove leading/trailing spaces
+    lower_text = raw.lower()
 
-    # A) basic format check
-    is_email = is_valid_email(t)
-    is_url = is_valid_url(t)
-    if not is_email and not is_url:
-        reasons.append("Format check failed: ❌ not a valid email or URL.")
+    is_email = is_valid_email(raw)
+    is_url = is_valid_url(raw)
 
-    # B) http instead of https = risky
-    if "http://" in t:
-        reasons.append("❌ Uses HTTP instead of HTTPS.")
+    # Invalid input
+    if not (is_email or is_url):
+        reasons.append("[!] ALERT: Not a valid email or URL format.")
+        score += 30
 
-    # C) contains phishing keywords
+    # Insecure protocol
+    if lower_text.startswith("http://"):
+        reasons.append("[-] INSECURE: Uses HTTP instead of HTTPS.")
+        score += 25
+
+    # Keyword check
     for kw in SUSPICIOUS_KEYWORDS:
-        if kw in t:
-            reasons.append(f"❌ Contains suspicious keyword: '{kw}'.")
+        if kw in lower_text:
+            reasons.append(f"[-] INSECURE: Suspicious keyword '{kw}'.")
+            score += 8
 
-    # D) contains suspicious tokens
-    for part in SUSPICIOUS_PARTS:
-        if part in t:
-            reasons.append(f"❌ Contains suspicious token: '{part}'.")
+    # Host checks
+    host = extract_host(raw)
+    if host:
+        reg = registrable_domain(host)
 
-    # E) too many digits (e.g. paypal12345678.com)
-    digits = sum(1 for ch in t if ch.isdigit())
-    if digits > 6:
-        reasons.append("Contains many digits (possible obfuscation).")
+        if host.count(".") >= 4:
+            reasons.append("[-] INSECURE: Too many subdomains (fake nesting).")
+            score += 12
 
-    # --- Final decision ---
-    is_suspicious = True
-    if (is_email or is_url) and len(reasons) == 0:
-        is_suspicious = False
+        # punycode means internationalized domain, xn-- indicates this, internationalized domains means it could be a lookalike domain
+        if host.startswith("xn--"):
+            reasons.append("[!] ALERT: Internationalized domain (punycode).")
+            score += 20
 
-    # --- Suggestion (new) ---
+        if sum(ch.isdigit() for ch in host) > 6:
+            reasons.append("[-] INSECURE: Too many digits in domain (obfuscation).")
+            score += 10
+
+        # Lookalike check
+        normalized_host = normalize_for_lookalike(host.replace("-", ""))
+        for brand in BRAND_BASE:
+            if brand in normalized_host and brand not in host:
+                reasons.append(f"[!] ALERT: Domain resembles '{brand}' (lookalike).")
+                score += 25
+                break
+
+        # Suspicious TLDs
+        tld = reg.split(".")[-1]
+        if tld in {"xyz", "top", "tk", "icu", "cf", "gq", "ml"}:
+            reasons.append(f"[-] INSECURE: Suspicious top-level domain '.{tld}'.")
+            score += 12
+
+    # Final verdict
+    if score >= 60:
+        verdict = "[!] ALERT: HIGH RISK"
+    elif score >= 40:
+        verdict = "[-] INSECURE: SUSPICIOUS"
+    elif score >= 20:
+        verdict = "[-] INSECURE: REVIEW ADVISED"
+    else:
+        verdict = "[+] SAFE"
+
+    # Suggestion
     suggestion = None
-    if is_suspicious:  # if suspicious, give safe example
-        if "@" in t:  # looks like email but wrong
-            suggestion = f"Example of safe email: {suggest_safe_email()}"
-        elif t.startswith("http://") or t.startswith("https://"):
-            suggestion = f"Example of safe URL: {suggest_safe_url()}"
-        else:  # neither email nor URL
-            suggestion = f"Try format like: {suggest_safe_email()} or {suggest_safe_url()}"
+    if verdict != "[+] SAFE":
+        if is_email:
+            suggestion = "  [+] Tip: Verify sender's domain and only trust official addresses."
+        elif is_url:
+            suggestion = "  [+] Tip: Manually type the official site instead of clicking links."
+        else:
+            suggestion = "  [+] Tip: Provide a full email (user@domain.tld) or full URL (https://domain.tld)."
 
-    # Return result
-    return is_suspicious, reasons, suggestion
+    return verdict, score, reasons, suggestion
+
+
+# ------------------------------
+# CLI entry
+# ------------------------------
+def input_phish():
+    banner_heading("Phishing Email/URL Detector")
+    user_input = input("Enter an email or URL to check: ").strip()
+
+    verdict, score, reasons, suggestion = detect_phishing(user_input)
+
+    banner_summary("Phishing Analysis")
+    print(f"\nResult: {verdict}  (Risk Score: {score})")
+    if reasons:
+        print("\nFindings:")
+        for r in reasons:
+            print(f"  {r}")
+    if suggestion:
+        print(f"\nRecommendation:\n{suggestion}\n")
+
+
+if __name__ == "__main__":
+    input_phish()
